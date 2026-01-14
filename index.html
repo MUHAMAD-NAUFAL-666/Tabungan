@@ -1096,7 +1096,15 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+
+        const { createClient } = supabase;
+
+const supabaseClient = createClient(
+  'https://sdxylefaikmklqftcymg.supabase.co',
+  'sb_publishable_A5-0FCOpfqOkLomHdUKCww_vGQXAX0X'
+);
         // Global Variables
         let savingsData = [];
         let goalsData = [];
