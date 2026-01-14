@@ -1115,14 +1115,26 @@ const supabaseClient = createClient(
         };
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set today's date as default
-            document.getElementById('inputDate').valueAsDate = new Date();
-            
-            // Load data from localStorage
-            loadData();
-            updateDisplay();
-        });
+        document.addEventListener('DOMContentLoaded', async function() {
+  document.getElementById('inputDate').valueAsDate = new Date();
+  await loadFromSupabase(); // ✅
+  updateDisplay();
+});
+
+async function loadFromSupabase() {
+  const { data, error } = await supabaseClient
+    .from('savings')
+    .select('*')
+    .order('date', { ascending: true });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  savingsData = data || [];
+}
+
 
         // Tab Switching
         function switchTab(tabName) {
@@ -1154,72 +1166,56 @@ const supabaseClient = createClient(
         }
 
         // Add Savings
-        function addSavings(event) {
-            event.preventDefault();
-            
-            const date = document.getElementById('inputDate').value;
-            const name = document.getElementById('inputName').value;
-            const category = document.getElementById('inputCategory').value;
-            const amount = parseInt(document.getElementById('inputAmount').value);
-            
-            // Calculate running total
-            const total = savingsData.reduce((sum, item) => sum + item.amount, 0) + amount;
-            
-            // Add to data array
-            const newData = {
-                id: Date.now(),
-                date: date,
-                name: name,
-                category: category,
-                amount: amount,
-                total: total
-            };
-            
-            savingsData.push(newData);
-            
-            // Save to localStorage
-            saveData();
-            
-            // Update display
-            updateDisplay();
-            
-            // Show notification
-            showNotification('success', 'Berhasil!', `Tabungan Rp ${formatCurrency(amount)} untuk ${name} berhasil ditambahkan`);
-            
-            // Reset form
-            resetForm();
-        }
+        async function addSavings(event) {
+  event.preventDefault();
+
+  const payload = {
+    date: inputDate.value,
+    name: inputName.value,
+    category: inputCategory.value,
+    amount: parseInt(inputAmount.value)
+  };
+
+  const { error } = await supabaseClient
+    .from('savings')
+    .insert([payload]);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadFromSupabase();
+  updateDisplay();
+  resetForm();
+}
+
 
         // Quick Add
-        function quickAddSavings(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('quickName').value;
-            const amount = parseInt(document.getElementById('quickAmount').value);
-            const category = document.getElementById('quickCategory').value;
-            const date = new Date().toISOString().split('T')[0];
-            
-            const total = savingsData.reduce((sum, item) => sum + item.amount, 0) + amount;
-            
-            const newData = {
-                id: Date.now(),
-                date: date,
-                name: name,
-                category: category,
-                amount: amount,
-                total: total
-            };
-            
-            savingsData.push(newData);
-            saveData();
-            updateDisplay();
-            
-            showNotification('success', 'Berhasil!', `Tabungan cepat Rp ${formatCurrency(amount)} berhasil ditambahkan`);
-            closeModal('quickAddModal');
-            
-            // Reset quick form
-            document.getElementById('quickAmount').value = '';
-        }
+       async function quickAddSavings(event) {
+  event.preventDefault();
+
+  const payload = {
+    date: new Date().toISOString().split('T')[0],
+    name: quickName.value,
+    category: quickCategory.value,
+    amount: parseInt(quickAmount.value)
+  };
+
+  const { error } = await supabaseClient
+    .from('savings')
+    .insert([payload]);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadFromSupabase();
+  updateDisplay();
+  closeModal('quickAddModal');
+}
+
 
         // Add Goal
         function addGoal(event) {
@@ -1235,7 +1231,6 @@ const supabaseClient = createClient(
             
             // Add to goals array
             const newGoal = {
-                id: Date.now(),
                 name: name,
                 targetAmount: amount,
                 currentAmount: 0, // Will be updated when savings are added
@@ -1759,15 +1754,23 @@ const supabaseClient = createClient(
             document.getElementById('inputDate').valueAsDate = new Date();
         }
 
-        function clearAllData() {
-            if (confirm('Apakah Anda yakin ingin menghapus semua data?')) {
-                savingsData = [];
-                saveData();
-                updateDisplay();
-                displayDataTable();
-                showNotification('success', 'Data Dihapus', 'Semua data telah dihapus');
-            }
-        }
+        async function clearAllData() {
+  if (!confirm('Yakin hapus semua data?')) return;
+
+  const { error } = await supabaseClient
+    .from('savings')
+    .delete()
+    .neq('id', 0);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadFromSupabase();
+  updateDisplay();
+}
+
 
         function showNotification(type, title, message) {
             const notification = document.getElementById('notification');
