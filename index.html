@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
             --gray: #718096;
             --light-gray: #e2e8f0;
             --white: #ffffff;
-            --bg-gradient: linear-gradient(135deg, #EE6983 0%, #6b247f 100%);
+            --bg-gradient: linear-gradient(135deg, #EE6983 0%, #802698 100%);
             --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
@@ -76,8 +77,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .user-profiles {
@@ -180,8 +188,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Cards */
@@ -231,7 +246,8 @@
             color: var(--dark);
         }
 
-        .form-input, .form-select {
+        .form-input,
+        .form-select {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid var(--light-gray);
@@ -241,7 +257,8 @@
             background: var(--white);
         }
 
-        .form-input:focus, .form-select:focus {
+        .form-input:focus,
+        .form-select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -393,8 +410,15 @@
         }
 
         @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .modal-header {
@@ -535,7 +559,8 @@
                 gap: 15px;
             }
 
-            .table-header, .table-row {
+            .table-header,
+            .table-row {
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
@@ -683,8 +708,13 @@
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         .progress-text {
@@ -747,12 +777,28 @@
             font-size: 20px;
         }
 
-        .goal-icon.primary { background: rgba(102, 126, 234, 0.1); color: var(--primary); }
-        .goal-icon.success { background: rgba(72, 187, 120, 0.1); color: var(--secondary); }
-        .goal-icon.warning { background: rgba(237, 137, 54, 0.1); color: var(--accent); }
-        .goal-icon.danger { background: rgba(245, 101, 101, 0.1); color: var(--danger); }
+        .goal-icon.primary {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
+        }
+
+        .goal-icon.success {
+            background: rgba(72, 187, 120, 0.1);
+            color: var(--secondary);
+        }
+
+        .goal-icon.warning {
+            background: rgba(237, 137, 54, 0.1);
+            color: var(--accent);
+        }
+
+        .goal-icon.danger {
+            background: rgba(245, 101, 101, 0.1);
+            color: var(--danger);
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -815,8 +861,8 @@
                             <label class="form-label">Nama</label>
                             <select class="form-select" id="inputName" required>
                                 <option value="">Pilih Nama</option>
-                                <option value="Anda">Naufal</option>
-                                <option value="Pasangan">Tiara</option>
+                                <option value="Naufal">Naufal</option>
+                                <option value="Tiara">Tiara</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1055,8 +1101,8 @@
                     <label class="form-label">Nama</label>
                     <select class="form-select" id="quickName" required>
                         <option value="">Pilih Nama</option>
-                        <option value="Anda">Naufal</option>
-                        <option value="Pasangan">Tiara</option>
+                        <option value="Naufal">Naufal</option>
+                        <option value="Tiara">Tiara</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1096,15 +1142,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-
-        const { createClient } = supabase;
-
-const supabaseClient = createClient(
-  'https://sdxylefaikmklqftcymg.supabase.co',
-  'sb_publishable_A5-0FCOpfqOkLomHdUKCww_vGQXAX0X'
-);
         // Global Variables
         let savingsData = [];
         let goalsData = [];
@@ -1115,26 +1153,14 @@ const supabaseClient = createClient(
         };
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', async function() {
-  document.getElementById('inputDate').valueAsDate = new Date();
-  await loadFromSupabase(); // ✅
-  updateDisplay();
-});
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set today's date as default
+            document.getElementById('inputDate').valueAsDate = new Date();
 
-async function loadFromSupabase() {
-  const { data, error } = await supabaseClient
-    .from('savings')
-    .select('*')
-    .order('date', { ascending: true });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  savingsData = data || [];
-}
-
+            // Load data from localStorage
+            loadData();
+            updateDisplay();
+        });
 
         // Tab Switching
         function switchTab(tabName) {
@@ -1142,18 +1168,18 @@ async function loadFromSupabase() {
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Remove active class from all nav tabs
             document.querySelectorAll('.nav-tab').forEach(navTab => {
                 navTab.classList.remove('active');
             });
-            
+
             // Show selected tab
             document.getElementById(tabName).classList.add('active');
-            
+
             // Add active class to clicked nav tab
             event.target.closest('.nav-tab').classList.add('active');
-            
+
             // Update display based on tab
             if (tabName === 'data') {
                 displayDataTable();
@@ -1166,71 +1192,88 @@ async function loadFromSupabase() {
         }
 
         // Add Savings
-        async function addSavings(event) {
-  event.preventDefault();
+        function addSavings(event) {
+            event.preventDefault();
 
-  const payload = {
-    date: inputDate.value,
-    name: inputName.value,
-    category: inputCategory.value,
-    amount: parseInt(inputAmount.value)
-  };
+            const date = document.getElementById('inputDate').value;
+            const name = document.getElementById('inputName').value;
+            const category = document.getElementById('inputCategory').value;
+            const amount = parseInt(document.getElementById('inputAmount').value);
 
-  const { error } = await supabaseClient
-    .from('savings')
-    .insert([payload]);
+            // Calculate running total
+            const total = savingsData.reduce((sum, item) => sum + item.amount, 0) + amount;
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
+            // Add to data array
+            const newData = {
+                id: Date.now(),
+                date: date,
+                name: name,
+                category: category,
+                amount: amount,
+                total: total
+            };
 
-  await loadFromSupabase();
-  updateDisplay();
-  resetForm();
-}
+            savingsData.push(newData);
 
+            // Save to localStorage
+            saveData();
+
+            // Update display
+            updateDisplay();
+
+            // Show notification
+            showNotification('success', 'Berhasil!', `Tabungan Rp ${formatCurrency(amount)} untuk ${name} berhasil ditambahkan`);
+
+            // Reset form
+            resetForm();
+        }
 
         // Quick Add
-       async function quickAddSavings(event) {
-  event.preventDefault();
+        function quickAddSavings(event) {
+            event.preventDefault();
 
-  const payload = {
-    date: new Date().toISOString().split('T')[0],
-    name: quickName.value,
-    category: quickCategory.value,
-    amount: parseInt(quickAmount.value)
-  };
+            const name = document.getElementById('quickName').value;
+            const amount = parseInt(document.getElementById('quickAmount').value);
+            const category = document.getElementById('quickCategory').value;
+            const date = new Date().toISOString().split('T')[0];
 
-  const { error } = await supabaseClient
-    .from('savings')
-    .insert([payload]);
+            const total = savingsData.reduce((sum, item) => sum + item.amount, 0) + amount;
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
+            const newData = {
+                id: Date.now(),
+                date: date,
+                name: name,
+                category: category,
+                amount: amount,
+                total: total
+            };
 
-  await loadFromSupabase();
-  updateDisplay();
-  closeModal('quickAddModal');
-}
+            savingsData.push(newData);
+            saveData();
+            updateDisplay();
 
+            showNotification('success', 'Berhasil!', `Tabungan cepat Rp ${formatCurrency(amount)} berhasil ditambahkan`);
+            closeModal('quickAddModal');
+
+            // Reset quick form
+            document.getElementById('quickAmount').value = '';
+        }
 
         // Add Goal
         function addGoal(event) {
             event.preventDefault();
-            
+
             const name = document.getElementById('goalName').value;
             const amount = parseInt(document.getElementById('goalAmount').value);
             const deadline = document.getElementById('goalDeadline').value;
             const icon = document.getElementById('goalIcon').value;
-            
+
             // Calculate current total savings
             const totalSavings = savingsData.reduce((sum, item) => sum + item.amount, 0);
-            
+
             // Add to goals array
             const newGoal = {
+                id: Date.now(),
                 name: name,
                 targetAmount: amount,
                 currentAmount: 0, // Will be updated when savings are added
@@ -1238,18 +1281,18 @@ async function loadFromSupabase() {
                 icon: icon,
                 created: new Date().toISOString().split('T')[0]
             };
-            
+
             goalsData.push(newGoal);
-            
+
             // Save to localStorage
             saveData();
-            
+
             // Update display
             displayGoals();
-            
+
             // Show notification
             showNotification('success', 'Target Ditambahkan!', `${name} dengan target Rp ${formatCurrency(amount)}`);
-            
+
             // Close modal
             closeModal('goalModal');
         }
@@ -1257,7 +1300,7 @@ async function loadFromSupabase() {
         // Display Data Table
         function displayDataTable() {
             const container = document.getElementById('dataTableContainer');
-            
+
             if (savingsData.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
@@ -1268,7 +1311,7 @@ async function loadFromSupabase() {
                 `;
                 return;
             }
-            
+
             let tableHTML = `
                 <div class="data-table">
                     <div class="table-header">
@@ -1280,10 +1323,10 @@ async function loadFromSupabase() {
                         <div>Total Tabungan</div>
                     </div>
             `;
-            
+
             // Sort by date (newest first)
             const sortedData = [...savingsData].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
+
             sortedData.forEach(item => {
                 tableHTML += `
                     <div class="table-row">
@@ -1296,7 +1339,7 @@ async function loadFromSupabase() {
                     </div>
                 `;
             });
-            
+
             tableHTML += `</div>`;
             container.innerHTML = tableHTML;
         }
@@ -1304,7 +1347,7 @@ async function loadFromSupabase() {
         // Display Goals
         function displayGoals() {
             const container = document.getElementById('goalsContainer');
-            
+
             if (goalsData.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
@@ -1315,30 +1358,30 @@ async function loadFromSupabase() {
                 `;
                 return;
             }
-            
+
             // Calculate total savings
             const totalSavings = savingsData.reduce((sum, item) => sum + item.amount, 0);
-            
+
             // Update current amount for each goal (proportionally)
             goalsData.forEach(goal => {
                 // Simple proportional distribution of total savings across goals
                 // In a real app, you might have a more sophisticated allocation system
                 goal.currentAmount = Math.min(totalSavings, goal.targetAmount);
             });
-            
+
             let goalsHTML = '';
-            
+
             goalsData.forEach(goal => {
                 const progressPercent = Math.round((goal.currentAmount / goal.targetAmount) * 100);
                 const daysLeft = Math.ceil((new Date(goal.deadline) - new Date()) / (1000 * 60 * 60 * 24));
                 const isOverdue = daysLeft < 0;
-                
+
                 // Determine icon class based on icon type
                 let iconClass = 'primary';
                 if (goal.icon === 'home') iconClass = 'success';
                 else if (goal.icon === 'car') iconClass = 'warning';
                 else if (goal.icon === 'ring') iconClass = 'danger';
-                
+
                 goalsHTML += `
                     <div class="goal-card">
                         <div class="goal-header">
@@ -1374,7 +1417,7 @@ async function loadFromSupabase() {
                     </div>
                 `;
             });
-            
+
             container.innerHTML = goalsHTML;
         }
 
@@ -1390,35 +1433,35 @@ async function loadFromSupabase() {
                 `;
                 return;
             }
-            
+
             // Calculate summary stats
-            const yourTotal = savingsData.filter(item => item.name === 'Anda').reduce((sum, item) => sum + item.amount, 0);
-            const partnerTotal = savingsData.filter(item => item.name === 'Pasangan').reduce((sum, item) => sum + item.amount, 0);
+            const yourTotal = savingsData.filter(item => item.name === 'Naufal').reduce((sum, item) => sum + item.amount, 0);
+            const partnerTotal = savingsData.filter(item => item.name === 'Tiara').reduce((sum, item) => sum + item.amount, 0);
             const grandTotal = yourTotal + partnerTotal;
-            
+
             // Find highest transaction
             const highestTransaction = Math.max(...savingsData.map(item => item.amount));
-            
+
             // Find top category
             const categoryCount = {};
             savingsData.forEach(item => {
                 categoryCount[item.category] = (categoryCount[item.category] || 0) + 1;
             });
             const topCategory = Object.keys(categoryCount).reduce((a, b) => categoryCount[a] > categoryCount[b] ? a : b);
-            
+
             // Calculate period
             const dates = savingsData.map(item => new Date(item.date));
             const minDate = new Date(Math.min(...dates));
             const maxDate = new Date(Math.max(...dates));
             const months = (maxDate.getFullYear() - minDate.getFullYear()) * 12 + (maxDate.getMonth() - minDate.getMonth()) + 1;
             const monthlyAvg = Math.round(grandTotal / months);
-            
+
             // Update summary cards
             document.getElementById('summaryPeriod').textContent = `${formatDate(minDate)} - ${formatDate(maxDate)}`;
             document.getElementById('monthlyAverage').textContent = `Rp ${formatCurrency(monthlyAvg)}`;
             document.getElementById('highestTransaction').textContent = `Rp ${formatCurrency(highestTransaction)}`;
             document.getElementById('topCategory').textContent = topCategory;
-            
+
             // Category summary
             const categorySummary = {};
             savingsData.forEach(item => {
@@ -1428,7 +1471,7 @@ async function loadFromSupabase() {
                 categorySummary[item.category].total += item.amount;
                 categorySummary[item.category].count += 1;
             });
-            
+
             let categoryHTML = '<div class="summary-grid">';
             for (const [category, data] of Object.entries(categorySummary)) {
                 categoryHTML += `
@@ -1440,7 +1483,7 @@ async function loadFromSupabase() {
                 `;
             }
             categoryHTML += '</div>';
-            
+
             document.getElementById('categorySummary').innerHTML = categoryHTML;
         }
 
@@ -1451,41 +1494,41 @@ async function loadFromSupabase() {
             if (growthCtx) {
                 // Prepare data for chart
                 const monthlyData = {};
-                
+
                 // Group savings by month
                 savingsData.forEach(item => {
                     const date = new Date(item.date);
                     const monthKey = `${date.getFullYear()}-${date.getMonth() + 1}`;
-                    
+
                     if (!monthlyData[monthKey]) {
-                        monthlyData[monthKey] = { 
-                            you: 0, 
-                            partner: 0, 
+                        monthlyData[monthKey] = {
+                            you: 0,
+                            partner: 0,
                             month: monthKey,
                             monthName: date.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })
                         };
                     }
-                    
-                    if (item.name === 'Anda') {
+
+                    if (item.name === 'Naufal') {
                         monthlyData[monthKey].you += item.amount;
                     } else {
                         monthlyData[monthKey].partner += item.amount;
                     }
                 });
-                
+
                 // Sort by month
                 const sortedMonths = Object.keys(monthlyData).sort();
-                
+
                 // Extract data for chart
                 const labels = sortedMonths.map(month => monthlyData[month].monthName);
                 const youData = sortedMonths.map(month => monthlyData[month].you);
                 const partnerData = sortedMonths.map(month => monthlyData[month].partner);
-                
+
                 // Destroy existing chart if it exists
                 if (growthCtx.chart) {
                     growthCtx.chart.destroy();
                 }
-                
+
                 growthCtx.chart = new Chart(growthCtx, {
                     type: 'line',
                     data: {
@@ -1516,7 +1559,7 @@ async function loadFromSupabase() {
                             y: {
                                 beginAtZero: true,
                                 ticks: {
-                                    callback: function(value) {
+                                    callback: function (value) {
                                         return 'Rp ' + formatCurrency(value);
                                     }
                                 }
@@ -1537,12 +1580,12 @@ async function loadFromSupabase() {
                     }
                     categoryTotals[item.category] += item.amount;
                 });
-                
+
                 // Destroy existing chart if it exists
                 if (categoryCtx.chart) {
                     categoryCtx.chart.destroy();
                 }
-                
+
                 categoryCtx.chart = new Chart(categoryCtx, {
                     type: 'doughnut',
                     data: {
@@ -1573,16 +1616,16 @@ async function loadFromSupabase() {
         // Update Display
         function updateDisplay() {
             // Calculate totals
-            const yourTotal = savingsData.filter(item => item.name === 'Anda').reduce((sum, item) => sum + item.amount, 0);
-            const partnerTotal = savingsData.filter(item => item.name === 'Pasangan').reduce((sum, item) => sum + item.amount, 0);
+            const yourTotal = savingsData.filter(item => item.name === 'Naufal').reduce((sum, item) => sum + item.amount, 0);
+            const partnerTotal = savingsData.filter(item => item.name === 'Tiara').reduce((sum, item) => sum + item.amount, 0);
             const grandTotal = yourTotal + partnerTotal;
-            
+
             // Update summary cards
             document.getElementById('yourTotal').textContent = `Rp ${formatCurrency(yourTotal)}`;
             document.getElementById('partnerTotal').textContent = `Rp ${formatCurrency(partnerTotal)}`;
             document.getElementById('grandTotal').textContent = `Rp ${formatCurrency(grandTotal)}`;
             document.getElementById('transactionCount').textContent = savingsData.length;
-            
+
             // Update profile names
             document.getElementById('youName').textContent = profileData.you.name;
             document.getElementById('partnerName').textContent = profileData.partner.name;
@@ -1595,17 +1638,17 @@ async function loadFromSupabase() {
             const title = document.getElementById('profileModalTitle');
             const nameInput = document.getElementById('profileNameInput');
             const preview = document.getElementById('profilePreview');
-            
+
             title.textContent = person === 'you' ? 'Edit Profil Naufal' : 'Edit Profil Tiara';
             nameInput.value = profileData[person].name;
-            
+
             if (profileData[person].photo) {
                 preview.src = profileData[person].photo;
                 preview.style.display = 'block';
             } else {
                 preview.style.display = 'none';
             }
-            
+
             modal.classList.add('active');
         }
 
@@ -1613,7 +1656,7 @@ async function loadFromSupabase() {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     const preview = document.getElementById('profilePreview');
                     preview.src = e.target.result;
                     preview.style.display = 'block';
@@ -1624,14 +1667,14 @@ async function loadFromSupabase() {
 
         function saveProfile(event) {
             event.preventDefault();
-            
+
             const name = document.getElementById('profileNameInput').value;
             const preview = document.getElementById('profilePreview');
-            
+
             profileData[currentProfile].name = name;
             if (preview.src && preview.src !== window.location.href) {
                 profileData[currentProfile].photo = preview.src;
-                
+
                 // Update avatar display
                 if (currentProfile === 'you') {
                     document.getElementById('youAvatarImg').src = preview.src;
@@ -1643,7 +1686,7 @@ async function loadFromSupabase() {
                     document.getElementById('partnerAvatarIcon').style.display = 'none';
                 }
             }
-            
+
             saveData();
             updateDisplay();
             showNotification('success', 'Profil Diperbarui!', `Profil ${name} berhasil disimpan`);
@@ -1658,20 +1701,20 @@ async function loadFromSupabase() {
         function editGoal(goalId) {
             const goal = goalsData.find(g => g.id === goalId);
             if (!goal) return;
-            
+
             // Fill form with goal data
             document.getElementById('goalName').value = goal.name;
             document.getElementById('goalAmount').value = goal.targetAmount;
             document.getElementById('goalDeadline').value = goal.deadline;
             document.getElementById('goalIcon').value = goal.icon;
-            
+
             // Change form submission to update instead of add
             const form = document.querySelector('#goalModal form');
-            form.onsubmit = function(event) {
+            form.onsubmit = function (event) {
                 event.preventDefault();
                 updateGoal(goalId);
             };
-            
+
             // Open modal
             document.getElementById('goalModal').classList.add('active');
         }
@@ -1679,23 +1722,23 @@ async function loadFromSupabase() {
         function updateGoal(goalId) {
             const goalIndex = goalsData.findIndex(g => g.id === goalId);
             if (goalIndex === -1) return;
-            
+
             // Update goal data
             goalsData[goalIndex].name = document.getElementById('goalName').value;
             goalsData[goalIndex].targetAmount = parseInt(document.getElementById('goalAmount').value);
             goalsData[goalIndex].deadline = document.getElementById('goalDeadline').value;
             goalsData[goalIndex].icon = document.getElementById('goalIcon').value;
-            
+
             // Save and update display
             saveData();
             displayGoals();
-            
+
             // Show notification
             showNotification('success', 'Target Diperbarui!', `Target ${goalsData[goalIndex].name} berhasil diperbarui`);
-            
+
             // Close modal
             closeModal('goalModal');
-            
+
             // Reset form submission back to add
             const form = document.querySelector('#goalModal form');
             form.onsubmit = addGoal;
@@ -1703,17 +1746,17 @@ async function loadFromSupabase() {
 
         function deleteGoal(goalId) {
             if (!confirm('Apakah Anda yakin ingin menghapus target ini?')) return;
-            
+
             const goalIndex = goalsData.findIndex(g => g.id === goalId);
             if (goalIndex === -1) return;
-            
+
             const goalName = goalsData[goalIndex].name;
             goalsData.splice(goalIndex, 1);
-            
+
             // Save and update display
             saveData();
             displayGoals();
-            
+
             // Show notification
             showNotification('success', 'Target Dihapus!', `Target ${goalName} berhasil dihapus`);
         }
@@ -1754,40 +1797,32 @@ async function loadFromSupabase() {
             document.getElementById('inputDate').valueAsDate = new Date();
         }
 
-        async function clearAllData() {
-  if (!confirm('Yakin hapus semua data?')) return;
-
-  const { error } = await supabaseClient
-    .from('savings')
-    .delete()
-    .neq('id', 0);
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  await loadFromSupabase();
-  updateDisplay();
-}
-
+        function clearAllData() {
+            if (confirm('Apakah Naufal yakin ingin menghapus semua data?')) {
+                savingsData = [];
+                saveData();
+                updateDisplay();
+                displayDataTable();
+                showNotification('success', 'Data Dihapus', 'Semua data telah dihapus');
+            }
+        }
 
         function showNotification(type, title, message) {
             const notification = document.getElementById('notification');
             const notificationTitle = document.getElementById('notificationTitle');
             const notificationMessage = document.getElementById('notificationMessage');
             const icon = notification.querySelector('.notification-icon i');
-            
+
             notification.className = `notification ${type} show`;
             notificationTitle.textContent = title;
             notificationMessage.textContent = message;
-            
+
             if (type === 'success') {
                 icon.className = 'fas fa-check';
             } else if (type === 'error') {
                 icon.className = 'fas fa-exclamation';
             }
-            
+
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
@@ -1804,25 +1839,25 @@ async function loadFromSupabase() {
             const savedSavings = localStorage.getItem('savingsData');
             const savedGoals = localStorage.getItem('goalsData');
             const savedProfile = localStorage.getItem('profileData');
-            
+
             if (savedSavings) {
                 savingsData = JSON.parse(savedSavings);
             }
-            
+
             if (savedGoals) {
                 goalsData = JSON.parse(savedGoals);
             }
-            
+
             if (savedProfile) {
                 profileData = JSON.parse(savedProfile);
-                
+
                 // Update avatar displays
                 if (profileData.you.photo) {
                     document.getElementById('youAvatarImg').src = profileData.you.photo;
                     document.getElementById('youAvatarImg').style.display = 'block';
                     document.getElementById('youAvatarIcon').style.display = 'none';
                 }
-                
+
                 if (profileData.partner.photo) {
                     document.getElementById('partnerAvatarImg').src = profileData.partner.photo;
                     document.getElementById('partnerAvatarImg').style.display = 'block';
@@ -1832,11 +1867,12 @@ async function loadFromSupabase() {
         }
 
         // Close modal when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
             }
         }
     </script>
 </body>
+
 </html>
